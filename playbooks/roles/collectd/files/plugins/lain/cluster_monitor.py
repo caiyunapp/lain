@@ -132,8 +132,8 @@ class ClusterPlugin(Plugin):
         meta_percent = 0
         try:
             resp = requests.get(
-                "http://localhost:%s/info" % self._swarm_manager_port,
-                timeout=1)
+                "http://docker.lain:2375/info",
+                timeout=5)
             data = resp.json()
             driver_status = data["DriverStatus"]
             data_used = 0

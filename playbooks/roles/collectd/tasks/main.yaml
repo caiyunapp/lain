@@ -12,7 +12,6 @@
   yum: pkg={{ item }}
   with_items:
     - collectd-ping
-    - collectd-disk
 
 - name: create collectd user
   user: name=collectd createhome=no append=yes groups=docker system=yes
