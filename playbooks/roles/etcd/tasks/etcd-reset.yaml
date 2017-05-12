@@ -20,11 +20,11 @@
   ignore_errors: yes
 
 - name: remove old etcd data
-  file: path={{ etcd_dir }} state=absent
+  file: path={{ etcd_dir }}/{{ node_name }} state=absent
   when: delete_existing_etcd|bool
 
 - name: create etcd data dir
-  file: path={{ etcd_dir }} state=directory owner=etcd
+  file: path={{ etcd_dir }}/{{ node_name }} state=directory owner=etcd
 
 - name: prepare etcd config
   set_fact:
