@@ -31,7 +31,19 @@ class ClusterPlugin(Plugin):
         self._get_etcd_stat()
         self._get_swarm_stat()
         self._get_docker_devicemapper_stat()
+        self._get_ipcs_stat()
         return self._result
+
+    def _get_ipcs_stat(self):
+        cmd = ['cat', '/proc/sysvipc/sem', '|', 'wc', '-l']
+        try:
+            out = subprocess.check_output(" ".join(cmd), shell=True)
+        except subprocess.CalledProcessError:
+            return
+        sem_count = int(out) - 1
+        self._result.append(
+            GraphiteData("lain.cluster.ipcs.sem",
+                         self._endpoint, sem_count, self._step, "val"))
 
     def _get_cali_veth_stat(self):
         '''
