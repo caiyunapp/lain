@@ -1,0 +1,5 @@
+- name: deploy cron plugins
+  copy: src=plugins dest=/var/lib/lain_cron/ mode=0755
+
+- name: set ipcs killer cron
+  template: src=ipcs.cron.j2 dest=/etc/cron.d/ipcs.cron
